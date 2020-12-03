@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POKEMON</title>
+    <link rel="stylesheet" href="estilos.css">
+</head>
+<body>
+
+    <h1 class="tittle">POKEDEX - BATALLA </h1>
+    <h1 class="tittle1">Integrantes</h1>
+    <h2 class="texto1">Eduardo Caiza</h2>
+    <h2 class="texto2">Bryan Olivares</h2>
+
+    <div style="text-align: center;">
+        <button  style="background-color: red;"    onclick="consultarPokemones()">BATALLA </button>
+    </div>
+    
+    <div class="pokemon-list" id="listarpokemon">
+        <div class="pokemon" id="pok-1">
+            <img >
+            <p></p>
+        </div>
+
+        <div class="vs">VS</div>
+
+        <div class="pokemon" id="pok-2">
+            <img >
+            <p></p>
+        </div>
+
+    </div>
+    <script>
+
+        let lista = document.getElementById("listarpokemon");
+        
+        function consultarPokemon(id, number) {
+
+            fetch(`https://pokeapi.co/api/v2/pokemon/${id}`)
+            .then( res =>{
+                console.log(res);
+                res.json()
+                .then(pokemon=>{
+                    console.log(pokemon);
+                    mostrarPokemon(pokemon,number)
+                })
+
+            })
+
+                
+
+        }
+
+        function consultarPokemones() {
+            let primerPokemon = Math.round(Math.random() * 150);
+            console.log(primerPokemon);
+            let segundoPokemon = Math.round(Math.random() * 150);
+            console.log(segundoPokemon);
+            consultarPokemon(primerPokemon, 1);
+            consultarPokemon(segundoPokemon, 2);
+        }
+
+        function mostrarPokemon(pokemon, id) {
+
+            let item = lista.querySelector(`#pok-${id}`);
+
+            let img = item.getElementsByTagName("img")[0].setAttribute("src", pokemon.sprites.front_default);
+
+            let nombre = item.getElementsByTagName("p")[0].innerHTML = pokemon.name;
+        }
+
+        consultarPokemones();
+
+
+
+    </script>
+    
+    <img src="images/1.png" style="position: absolute; margin-top: -190px; margin-left: 150px;"  width="260" height="200">
+    <img src="images/2.png" style="position: absolute; margin-top: -400px; margin-left: 900px;"  width="230" height="200">
+    
+</body>
+</html>
